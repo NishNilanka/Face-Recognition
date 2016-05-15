@@ -1,6 +1,0 @@
-C:\Users\Nishan Gunawardena\Downloads\Compressed\FaceRecProOV\FaceRecProOV\obj\x86\Release\MultiFaceRec.csprojResolveAssemblyReference.cache
-C:\Users\Nishan Gunawardena\Downloads\Compressed\FaceRecProOV\FaceRecProOV\obj\x86\Release\MultiFaceRec.Login.resources
-C:\Users\Nishan Gunawardena\Downloads\Compressed\FaceRecProOV\FaceRecProOV\obj\x86\Release\MultiFaceRec.FrmPrincipal.resources
-C:\Users\Nishan Gunawardena\Downloads\Compressed\FaceRecProOV\FaceRecProOV\obj\x86\Release\MultiFaceRec.Properties.Resources.resources
-C:\Users\Nishan Gunawardena\Downloads\Compressed\FaceRecProOV\FaceRecProOV\obj\x86\Release\MultiFaceRec.RegisterStudent.resources
-C:\Users\Nishan Gunawardena\Downloads\Compressed\FaceRecProOV\FaceRecProOV\obj\x86\Release\MultiFaceRec.csproj.GenerateResource.Cache
