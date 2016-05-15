@@ -71,12 +71,7 @@ namespace MultiFaceRec
 
         private void button1_Click(object sender, EventArgs e)
         {
-            //Initialize the capture device
-            grabber = new Capture();
-            grabber.QueryFrame();
-            //Initialize the FrameGraber event
-            Application.Idle += new EventHandler(FrameGrabber);
-            button1.Enabled = false;
+            
         }
 
 
@@ -141,7 +136,7 @@ namespace MultiFaceRec
 
 
             //Get the current frame form capture device
-            currentFrame = grabber.QueryFrame().Resize(320, 240, Emgu.CV.CvEnum.INTER.CV_INTER_CUBIC);
+            currentFrame = grabber.QueryFrame().Resize(370, 300, Emgu.CV.CvEnum.INTER.CV_INTER_CUBIC);
 
                     //Convert it to Grayscale
                     gray = currentFrame.Convert<Gray, Byte>();
@@ -236,7 +231,7 @@ namespace MultiFaceRec
                 ContTrain = ContTrain + 1;
 
                 //Get a gray frame from capture device
-                gray = grabber.QueryGrayFrame().Resize(320, 240, Emgu.CV.CvEnum.INTER.CV_INTER_CUBIC);
+                gray = grabber.QueryGrayFrame().Resize(370, 300, Emgu.CV.CvEnum.INTER.CV_INTER_CUBIC);
 
                 //Face Detector
                 MCvAvgComp[][] facesDetected = gray.DetectHaarCascade(
@@ -284,6 +279,30 @@ namespace MultiFaceRec
             {
                 MessageBox.Show("Face can not recognize", "Registration Fail", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
+        }
+
+        private void imageBoxFrameGrabber_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button2_Click_1(object sender, EventArgs e)
+        {
+            //Initialize the capture device
+            grabber = new Capture();
+            grabber.QueryFrame();
+            //Initialize the FrameGraber event
+            Application.Idle += new EventHandler(FrameGrabber);
+            button2.Enabled = false;
+            button1.Enabled = true;
+        }
+
+        private void button1_Click_1(object sender, EventArgs e)
+        {
+            button2.Enabled = true;
+            button1.Enabled = false;
+            this.Close();
+
         }
 
 

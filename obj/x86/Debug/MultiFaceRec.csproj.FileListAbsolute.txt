@@ -88,3 +88,12 @@ C:\Users\Nishan Gunawardena\Desktop\FaceRecProOV\obj\x86\Debug\MultiFaceRec.cspr
 C:\Users\Nishan Gunawardena\Desktop\FaceRecProOV\obj\x86\Debug\MultiFaceRec.exe
 C:\Users\Nishan Gunawardena\Desktop\FaceRecProOV\obj\x86\Debug\MultiFaceRec.pdb
 C:\Users\Nishan Gunawardena\Desktop\FaceRecProOV\bin\Debug\MultiFaceRec.pdb
+D:\Projects\Face-Recognition\bin\Debug\MultiFaceRec.exe
+D:\Projects\Face-Recognition\bin\Debug\MultiFaceRec.pdb
+D:\Projects\Face-Recognition\obj\x86\Debug\MultiFaceRec.Login.resources
+D:\Projects\Face-Recognition\obj\x86\Debug\MultiFaceRec.FrmPrincipal.resources
+D:\Projects\Face-Recognition\obj\x86\Debug\MultiFaceRec.Properties.Resources.resources
+D:\Projects\Face-Recognition\obj\x86\Debug\MultiFaceRec.csproj.GenerateResource.Cache
+D:\Projects\Face-Recognition\obj\x86\Debug\MultiFaceRec.exe
+D:\Projects\Face-Recognition\obj\x86\Debug\MultiFaceRec.pdb
+D:\Projects\Face-Recognition\obj\x86\Debug\MultiFaceRec.csprojResolveAssemblyReference.cache
