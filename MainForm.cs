@@ -17,6 +17,7 @@ using System.IO;
 using System.Diagnostics;
 using System.Media;
 using System.Threading;
+using MySql.Data.MySqlClient;
 
 namespace MultiFaceRec
 {
@@ -35,6 +36,7 @@ namespace MultiFaceRec
         List<string> NamePersons = new List<string>();
         int ContTrain, NumLabels, t;
         string name, names = null;
+        string MyConnection2 = "datasource=localhost;port=3306;username=root;password='';database=facerec";
 
 
         public FrmPrincipal()
@@ -133,7 +135,7 @@ namespace MultiFaceRec
             label3.Text = "0";
             //label4.Text = "";
             NamePersons.Add("");
-
+            
 
             //Get the current frame form capture device
             currentFrame = grabber.QueryFrame().Resize(370, 300, Emgu.CV.CvEnum.INTER.CV_INTER_CUBIC);
@@ -192,6 +194,27 @@ namespace MultiFaceRec
                     for (int nnn = 0; nnn < facesDetected[0].Length; nnn++)
                     {
                         names = names + NamePersons[nnn] + ", ";
+                        try
+                        {
+                            //This is my insert query in which i am taking input from the user through windows forms  
+                            string Query = "insert into Attendance(AttendanceID,Date,Time,ModuleID,StudentID) values('" + 0 + "','" + this.label4.Text + "','" + this.label4.Text + "','" + 1 + "','" + 2 + "');";
+                            //This is  MySqlConnection here i have created the object and pass my connection string.  
+                            MySqlConnection MyConn2 = new MySqlConnection(MyConnection2);
+                            //This is command class which will handle the query and connection object.  
+                            MySqlCommand MyCommand2 = new MySqlCommand(Query, MyConn2);
+                            MySqlDataReader MyReader2;
+                            MyConn2.Open();
+                            MyReader2 = MyCommand2.ExecuteReader();     // Here our query will be executed and data saved into the database.  
+                            //MessageBox.Show("Save Data");
+                            while (MyReader2.Read())
+                            {
+                            }
+                            MyConn2.Close();
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show(ex.Message);
+                        }
                         //SoundPlayer Sound = new SoundPlayer(@"C:\Users\Nishan Gunawardena\Desktop\FaceRecProOV\Resources\sams att_mixdown.wav");
                         //Sound.Play();
                         //Thread.Sleep(1000);
@@ -199,7 +222,7 @@ namespace MultiFaceRec
                     //Show the faces procesed and recognized
                     imageBoxFrameGrabber.Image = currentFrame;
                     label4.Text = names;
-                    names = "";
+                    names = ""; 
                     //Clear the list(vector) of names
                     NamePersons.Clear();
 
