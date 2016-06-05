@@ -161,9 +161,8 @@
             this.label4.ForeColor = System.Drawing.Color.Blue;
             this.label4.Location = new System.Drawing.Point(11, 140);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(61, 19);
+            this.label4.Size = new System.Drawing.Size(0, 19);
             this.label4.TabIndex = 42;
-            this.label4.Text = "Nobody";
             // 
             // label3
             // 
@@ -174,7 +173,7 @@
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(16, 16);
             this.label3.TabIndex = 41;
-            this.label3.Text = "0";
+            this.label3.Text = "";
             // 
             // FrmPrincipal
             // 

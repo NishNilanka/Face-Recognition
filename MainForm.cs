@@ -194,10 +194,11 @@ namespace MultiFaceRec
                     for (int nnn = 0; nnn < facesDetected[0].Length; nnn++)
                     {
                         names = names + NamePersons[nnn] + ", ";
+                        DateTime localDate = DateTime.Now;
                         try
                         {
                             //This is my insert query in which i am taking input from the user through windows forms  
-                            string Query = "insert into Attendance(AttendanceID,Date,Time,ModuleID,StudentID) values('" + 0 + "','" + this.label4.Text + "','" + this.label4.Text + "','" + 1 + "','" + 2 + "');";
+                            string Query = "insert into Attendance(AttendanceID,DateTime,Time,ModuleID,StudentID) values('" + 0 + "','" + localDate + "','" + this.label4.Text + "','" + 1 + "','" + 2 + "');";
                             //This is  MySqlConnection here i have created the object and pass my connection string.  
                             MySqlConnection MyConn2 = new MySqlConnection(MyConnection2);
                             //This is command class which will handle the query and connection object.  
