@@ -39,6 +39,7 @@ namespace MultiFaceRec
         string name, names = null;
         static string MyConnection = "datasource=localhost;port=3306;username=root;password='root';database=facerec";
         private readonly Thread thread;
+        SoundPlayer Sound = new SoundPlayer(@"D:\Projects\Face-Recognition\Resources\Ack.wav");
 
 
         public FrmPrincipal()
@@ -177,8 +178,11 @@ namespace MultiFaceRec
                         
                         if (!StudentID.Contains(name))
                         {
+                            Sound.Play();
                             StudentID.Enqueue(name);
-                            //Console.WriteLine(name);
+                            Console.WriteLine(name);
+                            
+                            
                         }
                         
                             //Draw the label for each face detected and recognized
@@ -201,9 +205,6 @@ namespace MultiFaceRec
                     for (int nnn = 0; nnn < facesDetected[0].Length; nnn++)
                     {
                         names = names + NamePersons[nnn] + ", ";
-                             
-                        //SoundPlayer Sound = new SoundPlayer(@"C:\Users\Nishan Gunawardena\Desktop\FaceRecProOV\Resources\sams att_mixdown.wav");
-                        //Sound.Play();
                         //Thread.Sleep(1000);
                     }
                     //Show the faces procesed and recognized
@@ -351,6 +352,7 @@ namespace MultiFaceRec
         {
             button2.Enabled = true;
             button1.Enabled = false;
+            updateDB();
             //grabber.Dispose();
             //thread.Abort();
             this.Close();
