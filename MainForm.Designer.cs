@@ -171,9 +171,8 @@
             this.label3.ForeColor = System.Drawing.Color.Red;
             this.label3.Location = new System.Drawing.Point(10, 117);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(16, 16);
+            this.label3.Size = new System.Drawing.Size(0, 16);
             this.label3.TabIndex = 41;
-            this.label3.Text = "";
             // 
             // FrmPrincipal
             // 

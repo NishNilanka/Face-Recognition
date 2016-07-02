@@ -2,11 +2,10 @@
 //Multiple face detection and recognition in real time
 //Using EmguCV cross platform .Net wrapper to the Intel OpenCV image processing library for C#.Net
 //Writed by Sergio Andrés Guitérrez Rojas
-//"Serg3ant" for the delveloper comunity
-// Sergiogut1805@hotmail.com
 //Regards from Bucaramanga-Colombia ;)
 
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
@@ -18,6 +17,7 @@ using System.Diagnostics;
 using System.Media;
 using System.Threading;
 using MySql.Data.MySqlClient;
+using System.Threading;
 
 namespace MultiFaceRec
 {
@@ -34,9 +34,11 @@ namespace MultiFaceRec
         List<Image<Gray, byte>> trainingImages = new List<Image<Gray, byte>>();
         List<string> labels= new List<string>();
         List<string> NamePersons = new List<string>();
+        static Queue StudentID = new Queue();
         int ContTrain, NumLabels, t;
         string name, names = null;
-        string MyConnection2 = "datasource=localhost;port=3306;username=root;password='';database=facerec";
+        static string MyConnection = "datasource=localhost;port=3306;username=root;password='root';database=facerec";
+        private readonly Thread thread;
 
 
         public FrmPrincipal()
@@ -102,8 +104,7 @@ namespace MultiFaceRec
                     break;
                 }
 
-                //resize face detected image for force to compare the same size with the 
-                //test image with cubic interpolation type method
+                //resize face detected image for force to compare the same size
                 TrainedFace = result.Resize(100, 100, Emgu.CV.CvEnum.INTER.CV_INTER_CUBIC);
                 trainingImages.Add(TrainedFace);
                 labels.Add(textBox1.Text);
@@ -173,7 +174,13 @@ namespace MultiFaceRec
                            ref termCrit);
 
                         name = recognizer.Recognize(result);
-
+                        
+                        if (!StudentID.Contains(name))
+                        {
+                            StudentID.Enqueue(name);
+                            //Console.WriteLine(name);
+                        }
+                        
                             //Draw the label for each face detected and recognized
                         currentFrame.Draw(name, ref font, new Point(f.rect.X - 2, f.rect.Y - 2), new Bgr(Color.LightGreen));
 
@@ -194,28 +201,7 @@ namespace MultiFaceRec
                     for (int nnn = 0; nnn < facesDetected[0].Length; nnn++)
                     {
                         names = names + NamePersons[nnn] + ", ";
-                        DateTime localDate = DateTime.Now;
-                        try
-                        {
-                            //This is my insert query in which i am taking input from the user through windows forms  
-                            string Query = "insert into Attendance(AttendanceID,DateTime,Time,ModuleID,StudentID) values('" + 0 + "','" + localDate + "','" + this.label4.Text + "','" + 1 + "','" + 2 + "');";
-                            //This is  MySqlConnection here i have created the object and pass my connection string.  
-                            MySqlConnection MyConn2 = new MySqlConnection(MyConnection2);
-                            //This is command class which will handle the query and connection object.  
-                            MySqlCommand MyCommand2 = new MySqlCommand(Query, MyConn2);
-                            MySqlDataReader MyReader2;
-                            MyConn2.Open();
-                            MyReader2 = MyCommand2.ExecuteReader();     // Here our query will be executed and data saved into the database.  
-                            //MessageBox.Show("Save Data");
-                            while (MyReader2.Read())
-                            {
-                            }
-                            MyConn2.Close();
-                        }
-                        catch (Exception ex)
-                        {
-                            MessageBox.Show(ex.Message);
-                        }
+                             
                         //SoundPlayer Sound = new SoundPlayer(@"C:\Users\Nishan Gunawardena\Desktop\FaceRecProOV\Resources\sams att_mixdown.wav");
                         //Sound.Play();
                         //Thread.Sleep(1000);
@@ -228,6 +214,42 @@ namespace MultiFaceRec
                     NamePersons.Clear();
 
                 }
+
+        public static void updateDB()
+        {
+            // the thread is paused for 20000 milliseconds
+            int sleepfor = 20000;
+            while (true)
+            {
+                while (StudentID.Count != 0)
+                {
+                    try
+                    {
+                        DateTime localDate = DateTime.Now;
+                        //This is my insert query in which i am taking input from the user through windows forms  
+                        string Query = "insert into Attendance(AttendanceID,DateTime,ModuleID,StudentID) values('" + 0 + "','" + localDate + "','" + 1 + "','" + StudentID.Dequeue() + "');";
+                        //This is  MySqlConnection here i have created the object and pass my connection string.  
+                        MySqlConnection MyConn2 = new MySqlConnection(MyConnection);
+                        //This is command class which will handle the query and connection object.  
+                        MySqlCommand MyCommand2 = new MySqlCommand(Query, MyConn2);
+                        MySqlDataReader MyReader2;
+                        MyConn2.Open();
+                        MyReader2 = MyCommand2.ExecuteReader();     // Here our query will be executed and data saved into the database.  
+                        //MessageBox.Show("Save Data");
+                        while (MyReader2.Read())
+                        {
+                        }
+                        MyConn2.Close();
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message);
+                    }
+                }
+                Thread.Sleep(sleepfor);
+
+            }
+        }
 
         protected override void OnFormClosing(FormClosingEventArgs e)
         {
@@ -313,18 +335,24 @@ namespace MultiFaceRec
         private void button2_Click_1(object sender, EventArgs e)
         {
             //Initialize the capture device
-            grabber = new Capture();
+            grabber = new Capture(1);
             grabber.QueryFrame();
             //Initialize the FrameGraber event
             Application.Idle += new EventHandler(FrameGrabber);
             button2.Enabled = false;
             button1.Enabled = true;
+ 
+            ThreadStart threadref = new ThreadStart(updateDB);
+            Thread thread = new Thread(threadref);
+            thread.Start();
         }
 
         private void button1_Click_1(object sender, EventArgs e)
         {
             button2.Enabled = true;
             button1.Enabled = false;
+            //grabber.Dispose();
+            //thread.Abort();
             this.Close();
 
         }

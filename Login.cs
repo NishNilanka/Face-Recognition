@@ -13,7 +13,7 @@ namespace MultiFaceRec
     public partial class Login : Form
     {
 
-        public string myConnection = "datasource=127.0.0.1; port=3306; Database=facerec; username=root; password=";
+        public string MyConnectionLogin = "datasource=localhost;port=3306;username=root;password='root';database=facerec";
 
         public Login()
         {
@@ -36,7 +36,7 @@ namespace MultiFaceRec
             {
                 string Query = "SELECT * FROM user WHERE user_name = '" + this.txtUserName.Text + "' and password = '" + this.txtPassword.Text + "';";
                 //System.Console.WriteLine(Query);
-                MySqlConnection myConn = new MySqlConnection(myConnection);
+                MySqlConnection myConn = new MySqlConnection(MyConnectionLogin);
                 MySqlDataReader myReader;
                 myConn.Open();
                 MySqlCommand cmdDataBase = new MySqlCommand(Query, myConn);
@@ -51,7 +51,7 @@ namespace MultiFaceRec
                 {
                     //MessageBox.Show("Login Succesfule");
                     //Application.Run(new FrmPrincipal());
-                    myConn.Close();
+                    //myConn.Close();
                     var MainForm = new FrmPrincipal();
                     MainForm.Show();
                     this.Hide();
@@ -66,6 +66,9 @@ namespace MultiFaceRec
                 else
                 {
                     MessageBox.Show("Wrong user name and password !", "Error !", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    var MainForm = new FrmPrincipal();
+                    MainForm.Show();
+                    this.Hide();
                     myConn.Close();
                 }
             }
