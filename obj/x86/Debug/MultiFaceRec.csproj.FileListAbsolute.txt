@@ -96,3 +96,4 @@ D:\Projects\Face-Recognition\obj\x86\Debug\MultiFaceRec.Properties.Resources.res
 D:\Projects\Face-Recognition\obj\x86\Debug\MultiFaceRec.csproj.GenerateResource.Cache
 D:\Projects\Face-Recognition\obj\x86\Debug\MultiFaceRec.exe
 D:\Projects\Face-Recognition\obj\x86\Debug\MultiFaceRec.pdb
+D:\Projects\Face-Recognition\obj\x86\Debug\MultiFaceRec.csprojResolveAssemblyReference.cache

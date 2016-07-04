@@ -140,7 +140,7 @@ namespace MultiFaceRec
             
 
             //Get the current frame form capture device
-            currentFrame = grabber.QueryFrame().Resize(370, 300, Emgu.CV.CvEnum.INTER.CV_INTER_CUBIC);
+            currentFrame = grabber.QueryFrame().Resize(320, 240, Emgu.CV.CvEnum.INTER.CV_INTER_CUBIC);
 
                     //Convert it to Grayscale
                     gray = currentFrame.Convert<Gray, Byte>();
@@ -278,7 +278,7 @@ namespace MultiFaceRec
                 ContTrain = ContTrain + 1;
 
                 //Get a gray frame from capture device
-                gray = grabber.QueryGrayFrame().Resize(370, 300, Emgu.CV.CvEnum.INTER.CV_INTER_CUBIC);
+                gray = grabber.QueryGrayFrame().Resize(320, 240, Emgu.CV.CvEnum.INTER.CV_INTER_CUBIC);
 
                 //Face Detector
                 MCvAvgComp[][] facesDetected = gray.DetectHaarCascade(
@@ -298,7 +298,7 @@ namespace MultiFaceRec
 
                 //resize face detected image for force to compare the same size with the 
                 //test image with cubic interpolation type method
-                TrainedFace = result.Resize(201, 146, Emgu.CV.CvEnum.INTER.CV_INTER_CUBIC);
+                TrainedFace = result.Resize(100, 100, Emgu.CV.CvEnum.INTER.CV_INTER_CUBIC);
                 trainingImages.Add(TrainedFace);
                 labels.Add(textBox1.Text);
 
@@ -328,15 +328,12 @@ namespace MultiFaceRec
             }
         }
 
-        private void imageBoxFrameGrabber_Click(object sender, EventArgs e)
-        {
 
-        }
 
         private void button2_Click_1(object sender, EventArgs e)
         {
             //Initialize the capture device
-            grabber = new Capture(1);
+            grabber = new Capture();
             grabber.QueryFrame();
             //Initialize the FrameGraber event
             Application.Idle += new EventHandler(FrameGrabber);
